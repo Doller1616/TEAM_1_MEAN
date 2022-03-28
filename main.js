@@ -35,4 +35,4 @@ pool.connect()
     .then(() => console.log("DB Connected Successfully"))
     .catch((e) => console.log(e));
 
-app.listen(8080, () => console.log("server started"));
+app.listen(process.env.PORT || 8080, () => console.log("server started"));
