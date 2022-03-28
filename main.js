@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('./config_db');
+const cors = require('cors');
 // const { runQuery } = require('./config_db/models');
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 
 app.get('/list', async(req, res) => {
