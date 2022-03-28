@@ -6,11 +6,25 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 
-app.get('/list', async(req, res) => {
+app.get('/', async (req, res) => {
+    res.send('server Started')
+});
+
+app.get('/create', async (req, res) => {
     pool.query('SELECT * FROM student')
         .then(r => res.send(r.rows))
         .catch(e => { res.send({ error: e }); console.log(e); })
-        
+
+    // const data = await runQuery('SELECT * FROM student');
+    // res.send(data?.rows)
+});
+
+
+app.get('/list', async (req, res) => {
+    pool.query('SELECT * FROM student')
+        .then(r => res.send(r.rows))
+        .catch(e => { res.send({ error: e }); console.log(e); })
+
     // const data = await runQuery('SELECT * FROM student');
     // res.send(data?.rows)
 });
@@ -25,7 +39,7 @@ app.post('/add', (req, res) => {
 
 app.get('/delete/:id', (req, res) => {
     const { id } = req.params;
-    pool.query(`DELETE FROM student	WHERE id = $1`,[id])
+    pool.query(`DELETE FROM student	WHERE id = $1`, [id])
         .then(r => res.send({ msg: 'added successfully' }))
         .catch(e => { res.send({ error: e }); console.log(e); })
 });
@@ -33,6 +47,11 @@ app.get('/delete/:id', (req, res) => {
 // DB Connectivity
 pool.connect()
     .then(() => console.log("DB Connected Successfully"))
+    .then(() => {
+        pool.query('CREATE TABLE IF NOT EXISTS student(id SERIAL PRIMARY KEY, firstname  TEXT, lastname  TEXT, age TEXT, address TEXT, email TEXT)')
+          .then(()=> console.log("Tables Generated"))
+          .catch((e)=> console.log("Error",e))
+    })
     .catch((e) => console.log(e));
 
 app.listen(process.env.PORT || 8080, () => console.log("server started"));
