@@ -7,7 +7,7 @@ let options = {
   port: 5432,
   password: "admin",
   database: "dolphin"
-}
+};
 
 
 
