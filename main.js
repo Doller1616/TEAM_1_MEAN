@@ -7,7 +7,7 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 
-
+// https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database
 const pool = new Pool({
   connectionString: 'postgres://uvozrtjqlqstft:752c063a54283bb1902786d55491bd112723cbed185a5dc010645193a873a7a2@ec2-54-173-77-184.compute-1.amazonaws.com:5432/d6l8hmn3dbjvp3',
   ssl: { rejectUnauthorized: false }
