@@ -11,7 +11,7 @@ exports.addUser = async (req, res, next) => {
 
 exports.feeSubmission = async (req, res, next) => {
     const { amount, schoolName, phoneNo  } = req.body;
-    console.log(msg);
+    const msg = `${amount} Rs submitted for ${new Date()} for class Vth. School ${schoolName}`
     try {
         const smsResult = await sendMobileSMS(msg, phoneNo);
         res.status(200).send(smsResult);
