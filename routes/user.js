@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const userController = require('../controller/user');
-const { userValidator } = require('../validations/userValidate');
-const { validateErrors } = require('../middleware/global-middlewares');
+const { addUser,userLogin} = require('../validations/userValidate');
+const { validateErrors ,varifyUser} = require('../middleware/global-middlewares');
 
 (()=>{
 
@@ -19,12 +19,15 @@ const { validateErrors } = require('../middleware/global-middlewares');
 
 
 function getRequest(){
-
+ 
 }
+
 
 function postRequest(){
-    router.post('/add', userValidator(), validateErrors, userController.addUser)
+    router.post('/add',  varifyUser ,addUser(), validateErrors, userController.addUser) // 2 layer security
+    router.post('/login', userLogin(), validateErrors, userController.userLogin) // Generate Token
 }
+
 
 function patchRequest(){
     

@@ -1,6 +1,6 @@
 const { body, check } = require('express-validator');
-
-exports.userValidator = () => {
+const {userLogin} = require('../db_config/models')
+exports.addUser = () => {
   
     //  return true
     //    const { age } = req.body;
@@ -13,14 +13,28 @@ exports.userValidator = () => {
 
     return [
         body('email').isEmail().withMessage('Invalid Email'),
-        body('age').isLength({ min: 5 }).withMessage('Min length should be 5'),
-        body('password') .custom((value, { req }) => {
-            if (value !== req.body.password) {
-              throw new Error('Password confirmation does not match password');
-            }
-            // Indicates the success of this synchronous custom validator
-            return false;
-          }),
+        body('password').exists().withMessage('pasword is mandatory')
     ]
 
+}
+
+exports.userLogin =()=>{
+   
+console.log();
+    return[
+      body('email').isEmail().withMessage('Invalid Email'),
+      body('password').custom( async (value,{req})=>{
+        const {email,password} = req.body
+        const {data}  = await   userLogin(email,password);
+        
+        if(data.rows && data.rows.length > 0) {
+          req.foundUser = data.rows[0];
+          return true
+        }else {
+          return false
+        }
+
+      })
+
+    ]
 }

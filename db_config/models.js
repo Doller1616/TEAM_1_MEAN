@@ -7,9 +7,24 @@ exports.insertRecord = async (records) => {
     const client = await pool.connect();
 
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO student(${keys}) VALUES (${args$})`, values)
-            .then(r => {
+        pool.query(`INSERT INTO users(${keys}) VALUES (${args$})`, values)
+            .then(r => { console.log(r);
                 resolve({ status: 200, msg: 'added successfully' })
+                client.release();
+            })
+            .catch(e => { reject(e); client.release(); })
+    })
+}
+
+exports.userLogin = async (email,password) => {
+
+
+    const client = await pool.connect();
+
+    return new Promise((resolve, reject) => {
+        pool.query(`select * from users where email=$1 and password=$2`, [email,password])
+            .then(r => { 
+                resolve({ status: 200,data:r, msg: 'added successfully' })
                 client.release();
             })
             .catch(e => { reject(e); client.release(); })
