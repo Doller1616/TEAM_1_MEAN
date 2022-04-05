@@ -7,7 +7,7 @@ const db = () => {
     // Production
     if (process.env.NODE_ENV.trim() === "production") {
         pool = new Pool({
-            connectionString: 'postgres://tlznagxxgbcbaz:9575b497b6ca26a9924aeac88aec2c1849a4e913c3c65b9f1d8690bc54dc417b@ec2-18-215-96-22.compute-1.amazonaws.com:5432/d53j2thu7963td',
+            connectionString: 'postgres://tlznagxxgbcbaz:9575b497b6ca26a99...', // Add heroku postgres link here
             ssl: { rejectUnauthorized: false }
         });
         console.log("Production Mode");
