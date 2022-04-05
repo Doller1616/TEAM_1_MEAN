@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const userController = require('../controller/user');
+const { userValidator } = require('../validations/userValidate');
+const { validateErrors } = require('../middleware/global-middlewares');
 
 (()=>{
 
@@ -21,7 +23,7 @@ function getRequest(){
 }
 
 function postRequest(){
-    router.post('/add', userController.addUser)
+    router.post('/add', userValidator(), validateErrors, userController.addUser)
 }
 
 function patchRequest(){

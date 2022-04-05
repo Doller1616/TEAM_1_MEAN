@@ -1,7 +1,5 @@
 const server = require('./server');
 
-
-
 // const express = require('express');
 // const { db_connect,pool } = require('./db_config');
 // const { insertRecord } = require('./db_config/models');

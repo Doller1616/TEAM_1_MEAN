@@ -44,7 +44,7 @@ function globalErrorHandler(){
 
     app.use((err, req, res, next)=>{
         res.status(500).send({
-            msg : err.message || 'Somthing went wrong. Please try again later',
+            msg : err.message || err || 'Somthing went wrong. Please try again later',
             status : 500
         })
     })
