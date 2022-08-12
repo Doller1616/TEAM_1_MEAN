@@ -31,12 +31,12 @@ const server = require('./server');
 //     .catch(e => { res.send({ error: e }); console.log(e); })
 // });
 
-// app.get('/delete/:id', (req, res) => {
-//   const { id } = req.params;
-//   pool.query(`DELETE FROM student	WHERE id = $1`, [id])
-//     .then(r => res.send({ msg: 'Entry Deleted Successfully' }))
-//     .catch(e => { res.send({ error: e }); console.log(e); })
-// });
+app.get('/delete/:id', (req, res) => {
+  const { id } = req.params;
+  pool.query(`DELETE FROM student	WHERE id = $1`, [id])
+    .then(r => res.send({ msg: 'Entry Deleted Successfully' }))
+    .catch(e => { res.send({ error: e }); console.log(e); })
+});
 
 
 
